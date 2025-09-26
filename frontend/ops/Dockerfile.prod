@@ -1,0 +1,14 @@
+FROM node:24-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install -g npm@11.6.0
+RUN npm install --include=dev
+
+COPY . .
+RUN npm run build
+
+RUN ls -la /app/build
+
+CMD ["sh", "-c", "echo 'User app build complete - files available in /app/build'"]

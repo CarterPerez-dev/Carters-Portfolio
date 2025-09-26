@@ -1,6 +1,6 @@
 [style]
 based_on_style = pep8
-column_limit = 79
+column_limit = 75
 indent_width = 4
 continuation_indent_width = 4
 indent_closing_brackets = false
