@@ -1,0 +1,64 @@
+# ©AngelaMos | 2025
+# Dev Compose
+
+services:
+  backend:
+    container_name: backend_service
+    build:
+      context: ./backend
+      dockerfile: ops/Dockerfile.dev
+    ports:
+      - "5000:5000"
+    environment:
+      - ENVIRONMENT=development
+      - PYTHONPYCACHEPREFIX=/app/.cache/pycache      
+    volumes:
+      - ./backend:/app
+      - ./conf/nginx/logs:/var/log/nginx
+      - ./.cache:/app/.cache      
+    env_file:
+      - backend/.env.development
+    networks:
+      - my_network
+    restart: unless-stopped
+
+  frontend:
+    container_name: frontend_dev
+    build:
+      context: ./frontend
+      dockerfile: ops/Dockerfile.dev
+    env_file:
+      - backend/.env.development
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - my_network     
+    restart: unless-stopped
+
+  nginx:
+    container_name: nginx_dev
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - ./conf/conf.nginx:/etc/nginx/nginx.conf
+      - ./conf/nginx/nginx/dev:/etc/nginx/sites-enabled
+      - ./conf/nginx/logs:/var/log/nginx/
+    networks:
+      - my_network
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+
+networks:
+  my_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16

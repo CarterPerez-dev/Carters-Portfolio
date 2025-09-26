@@ -1,0 +1,37 @@
+# backend/run/Dockerfile.prod
+
+FROM python:3.11.3 AS builder
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libffi-dev \
+    gcc
+
+RUN python3 -m venv /venv
+ENV VIRTUAL_ENV="/venv"
+ENV PATH="/venv/bin:$PATH"
+
+COPY pyproject.toml ./
+
+RUN pip install --upgrade pip setuptools wheel
+RUN pip install .
+
+FROM python:3.11.3-slim
+
+WORKDIR /app
+
+COPY --from=builder /venv /venv
+
+COPY . .
+
+ENV VIRTUAL_ENV="/venv"
+ENV PATH="/venv/bin:$PATH"
+ENV FLASK_APP=CarterRun.py
+ENV PYTHONDONTWRITEBYTECODE=1 
+ENV PYTHONUNBUFFERED=1 
+
+EXPOSE 5000
+
+CMD ["uwsgi", "--ini", "uwsgi.ini"]
