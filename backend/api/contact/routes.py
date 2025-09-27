@@ -35,10 +35,7 @@ class ContactListResource(Resource):
     """
     @contact_ns.doc(**CREATE_CONTACT_DOC)
     @current_app.limiter.limit(Config.CONTACT_RATE_LIMIT)
-    @S(
-        req = ContactCreateRequest,
-        res = ContactCreateResponse
-    )
+    @S(req = ContactCreateRequest, res = ContactCreateResponse)
     def post(self):
         """
         Submit a new contact form
@@ -51,12 +48,7 @@ class ContactListResource(Resource):
         """
         Get recent contact submissions (admin)
         """
-        limit = int(
-            request.args.get(
-                'limit',
-                Config.CONTACT_DEFAULT_LIST_LIMIT
-            )
-        )
+        limit = int(request.args.get('limit', Config.CONTACT_DEFAULT_LIST_LIMIT))
         return get_recent_contacts_list(limit)
 
 

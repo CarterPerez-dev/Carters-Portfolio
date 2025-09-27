@@ -12,6 +12,7 @@ rest = Api(
     title='Portfolio API',
     description='Portfolio Website API',
     doc='/docs/',
+    prefix='/v1',
     authorizations={
         'BearerAuth': {
             'type': 'apiKey',
