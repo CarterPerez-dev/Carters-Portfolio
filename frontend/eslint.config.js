@@ -13,7 +13,7 @@ import globals from 'globals';
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'vite.config.ts', '*.min.js', 'eslint.config.js', 'stylelint.config.js', 'src/dev/**/*'],
+    ignores: ['dist', 'vite.config.ts', '*.min.js', 'eslint.config.js', 'stylelint.config.js', 'src/dev/**/*', 'src/pages/root/rootTree.tsx'],
   },
 
   js.configs.recommended,

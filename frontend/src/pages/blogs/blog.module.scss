@@ -1,0 +1,320 @@
+// ===========================
+// Blog Listing Page Styles
+// ©AngelaMos | 2025
+// ===========================
+
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.container {
+  @include container;
+
+  min-height: calc(100vh - 100px);
+  padding-top: $spacing-xl;
+  padding-bottom: $spacing-xl;
+}
+
+.terminal {
+  @include mono-text;
+
+  max-width: 900px;
+  margin: 0 auto;
+  color: $white;
+}
+
+.command {
+  @include mono-text;
+
+  font-size: $font-size-md;
+  color: $white;
+  margin-bottom: $spacing-md;
+  opacity: 0.9;
+}
+
+.httpStatus {
+  @include mono-text;
+
+  font-size: $font-size-sm;
+  color: $white;
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1px solid rgba($white, 0.2);
+  opacity: 0.7;
+}
+
+.searchBar {
+  @include mono-text;
+
+  margin-bottom: $spacing-md;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: $font-size-sm;
+
+  .prompt {
+    color: $white;
+    opacity: 0.7;
+  }
+
+  .inputWrapper {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+    display: inline-block;
+  }
+
+  .searchInput {
+    @include mono-text;
+
+    background: $black;
+    color: $white;
+    border: none;
+    border-bottom: 1px solid rgba($white, 0.3);
+    padding: $spacing-xs;
+    padding-right: 12px;
+    font-size: $font-size-sm;
+    width: 100%;
+    caret-color: transparent;
+
+    &:focus {
+      outline: none;
+      border-bottom-color: $white;
+    }
+  }
+
+  .blinkingCursor {
+    position: absolute;
+    left: 0;
+    bottom: $spacing-xs;
+    color: $white;
+    animation: blink 1.2s infinite;
+    pointer-events: none;
+    margin-left: 2px;
+  }
+}
+
+.tagFilter {
+  @include mono-text;
+
+  margin-bottom: $spacing-xl;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+  font-size: $font-size-sm;
+
+  .prompt {
+    color: $white;
+    opacity: 0.7;
+  }
+
+  .tag,
+  .activeTag {
+    background: $black;
+    color: $white;
+    border: 1px solid rgba($white, 0.3);
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-xs;
+    transition:
+      transform $transition-fast,
+      border-color $transition-base;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-1px);
+      border-color: $white;
+    }
+  }
+
+  .activeTag {
+    border-color: $white;
+  }
+}
+
+.postsContainer {
+  margin-top: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+.post {
+  border: 1px solid rgba($white, 0.2);
+  padding: $spacing-lg;
+  background: $black;
+  transition:
+    border-color $transition-base,
+    transform $transition-base;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $white;
+    transform: translateY(-2px);
+  }
+
+  .postHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+    font-size: $font-size-sm;
+    opacity: 0.6;
+  }
+
+  .postNumber {
+    color: $white;
+  }
+
+  .postDate {
+    color: $white;
+  }
+
+  .postTitle {
+    @include mono-text;
+
+    font-size: $font-size-md;
+    font-weight: 600;
+    margin-bottom: $spacing-sm;
+    color: $white;
+  }
+
+  .postTags {
+    display: flex;
+    gap: $spacing-xs;
+    margin-bottom: $spacing-md;
+    flex-wrap: wrap;
+
+    .tagBadge {
+      font-size: $font-size-xs;
+      color: $white;
+      opacity: 0.7;
+    }
+  }
+
+  .postExcerpt {
+    @include mono-text;
+
+    font-size: $font-size-sm;
+    line-height: 1.6;
+    color: $white;
+    opacity: 0.8;
+    margin-bottom: $spacing-md;
+  }
+
+  .readButton {
+    @include mono-text;
+
+    background: $black;
+    color: $white;
+    border: none;
+    padding: 0;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    text-decoration: underline;
+    transition:
+      transform $transition-fast,
+      opacity $transition-base;
+    opacity: 0.9;
+
+    &:hover {
+      transform: translateY(-1px);
+      opacity: 1;
+    }
+  }
+}
+
+.error,
+.empty,
+.loading {
+  @include mono-text;
+
+  font-size: $font-size-sm;
+  color: $white;
+  padding: $spacing-lg;
+  border: 1px solid rgba($white, 0.2);
+  opacity: 0.8;
+
+  .errorCommand {
+    margin-top: $spacing-sm;
+    opacity: 0.6;
+  }
+
+  .loadingCursor {
+    animation: blink 1s infinite;
+    margin-top: $spacing-sm;
+  }
+}
+
+.connectionStatus {
+  @include mono-text;
+
+  margin-top: $spacing-xl;
+  padding-top: $spacing-md;
+  border-top: 1px solid rgba($white, 0.2);
+  font-size: $font-size-sm;
+  opacity: 0.7;
+
+  div {
+    margin-bottom: $spacing-xs;
+  }
+
+  .statusValue {
+    color: #f00;
+  }
+
+  .cursor {
+    animation: blink 1s infinite;
+  }
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink-caret {
+  0%,
+  100% {
+    caret-color: $white;
+  }
+
+  50% {
+    caret-color: transparent;
+  }
+}
+
+@include breakpoint(mobile) {
+  .container {
+    padding-top: $spacing-lg;
+    padding-bottom: $spacing-lg;
+  }
+
+  .searchBar {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .searchInput {
+      width: 100%;
+      max-width: none;
+    }
+  }
+
+  .post {
+    padding: $spacing-md;
+
+    .postTitle {
+      font-size: $font-size-sm;
+    }
+
+    .postExcerpt {
+      font-size: $font-size-xs;
+    }
+  }
+}

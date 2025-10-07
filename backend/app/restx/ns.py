@@ -25,3 +25,10 @@ blogs_ns = Namespace(
     description='Blog posts and articles',
     path='/blogs'
 )
+
+# ============ ADMIN DOMAIN =============
+admin_auth_ns = Namespace(
+    'admin/auth',
+    description='Admin authentication',
+    path='/admin/auth'
+)

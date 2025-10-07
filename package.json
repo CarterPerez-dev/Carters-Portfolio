@@ -1,0 +1,84 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "Full stack portfolio website with React frontend and Flask backend",
+  "private": true,
+  "scripts": {
+    "// Development": "========================================",
+    "dev": "docker compose -f docker-compose.yml.dev build",
+    "dev:up": "docker compose -f docker-compose.yml.dev up -d",
+    "dev:down": "docker compose -f docker-compose.yml.dev down",
+    "dev:logs": "docker compose -f docker-compose.yml.dev logs -f",
+    "dev:logs:backend": "docker compose -f docker-compose.yml.dev logs -f backend",
+    "dev:logs:frontend": "docker compose -f docker-compose.yml.dev logs -f frontend",
+    "dev:logs:nginx": "docker compose -f docker-compose.yml.dev logs -f nginx",
+    "dev:logs:redis": "docker compose -f docker-compose.yml.dev logs -f redis",
+    "dev:restart": "npm run dev:down && npm run dev:up",
+
+    "// Production": "========================================",
+    "prod": "docker compose -f docker-compose.yml.prod build",
+    "prod:up": "docker compose -f docker-compose.yml.prod up -d",
+    "prod:down": "docker compose -f docker-compose.yml.prod down",
+    "prod:logs": "docker compose -f docker-compose.yml.prod logs -f",
+    "prod:logs:backend": "docker compose -f docker-compose.yml.prod logs -f backend",
+    "prod:logs:nginx": "docker compose -f docker-compose.yml.prod logs -f nginx",
+    "prod:restart": "npm run prod:down && npm run prod:up",
+
+    "// Docker Maintenance": "========================================",
+    "docker:clean": "docker system prune -f && docker image prune -f",
+    "docker:nuke": "docker system prune -a --volumes -f",
+    "docker:stop-all": "docker stop $(docker ps -aq) 2>/dev/null || true",
+
+    "// Frontend Linting": "========================================",
+    "lint": "cd frontend && npm run lint:eslint",
+    "lint:fix": "cd frontend && npm run lint:eslint -- --fix",
+    "format": "cd frontend && npm run format",
+    "format:check": "cd frontend && npm run format:check",
+    "types": "cd frontend && npm run lint:types",
+    "scss": "cd frontend && npm run lint:scss",
+    "scss:fix": "cd frontend && npm run lint:scss:fix",
+    "lint:all": "npm run format:check && npm run scss && npm run lint && npm run types",
+
+    "// Backend Linting": "========================================",
+    "backend:lint": "cd backend && ruff check .",
+    "backend:lint:fix": "cd backend && ruff check . --fix",
+    "backend:format": "cd backend && ruff format .",
+    "backend:types": "cd backend && mypy .",
+    "backend:test": "cd backend && pytest",
+
+    "// Quick Commands": "========================================",
+    "start": "npm run dev:up",
+    "stop": "npm run dev:down",
+    "restart": "npm run dev:restart",
+    "logs": "npm run dev:logs",
+    "build": "npm run dev",
+
+    "// Setup": "========================================",
+    "setup": "npm run setup:env && npm run setup:install",
+    "setup:env": "cp .env.example .env.dev && echo 'Please edit .env.dev with your credentials'",
+    "setup:install": "cd frontend && npm install && cd ../backend && pip install -e '.[dev]'",
+
+    "// Status": "========================================",
+    "status": "docker ps",
+    "status:all": "docker ps -a",
+    "ports": "echo 'Frontend: http://localhost:3003\\nBackend API: http://localhost:8083/api\\nBackend Direct: http://localhost:5003\\nRedis: localhost:6382'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarterPerez-dev/portfolio.git"
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "flask",
+    "docker",
+    "mongodb",
+    "redis"
+  ],
+  "author": "Carter Perez",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

@@ -10,6 +10,7 @@ from typing import (
     TypeVar,
     cast,
 )
+from config import Config
 from functools import wraps
 from flask import current_app
 from collections.abc import Callable
@@ -18,7 +19,6 @@ from .enums import CacheNamespace
 from .extension import flask_redis
 from .keys import CacheKeyBuilder, CacheTags
 
-from ....config import Config
 
 
 logger = logging.getLogger(__name__)

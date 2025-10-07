@@ -43,10 +43,10 @@ from ._docs import (
     PROJECT_SEARCH_DOC,
     GITHUB_RATE_LIMIT_DOC
 )
-from ...config import Config
+from config import Config
 
 
-@projects_ns.route('/')
+@projects_ns.route('')
 class ProjectListResource(Resource):
     """
     Routes for project list operations

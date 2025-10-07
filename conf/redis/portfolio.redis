@@ -1,0 +1,53 @@
+bind 0.0.0.0
+
+protected-mode yes
+
+rename-command FLUSHALL ""
+rename-command FLUSHDB ""
+rename-command CONFIG ""
+rename-command SHUTDOWN ""
+rename-command MONITOR ""
+rename-command DEBUG ""
+rename-command SLAVEOF ""
+rename-command MIGRATE ""
+
+loglevel notice
+
+appendonly yes
+appendfsync everysec
+
+save 900 1
+save 300 10
+save 60 10000
+
+maxmemory 16gb
+
+maxmemory-policy allkeys-lru
+
+maxclients 20000
+tracking-table-max-keys 2000000
+
+port 6379
+
+io-threads 8
+io-threads-do-reads yes
+
+tcp-backlog 4096
+timeout 60
+tcp-keepalive 60
+
+activedefrag yes
+active-defrag-ignore-bytes 50mb
+active-defrag-threshold-lower 5
+active-defrag-threshold-upper 20
+active-defrag-cycle-min 1
+active-defrag-cycle-max 75
+
+lazyfree-lazy-eviction yes
+lazyfree-lazy-expire yes
+lazyfree-lazy-server-del yes
+replica-lazy-flush yes
+
+jemalloc-bg-thread yes
+
+

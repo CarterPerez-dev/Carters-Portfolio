@@ -1,0 +1,44 @@
+// ===========================
+// SCSS Variables
+// ©AngelaMos | 2025
+// ===========================
+
+$black: #000;
+$white: #fff;
+$pixel-unit: 4px;
+$spacing-xs: $pixel-unit * 1; // 4px
+$spacing-sm: $pixel-unit * 2; // 8px
+$spacing-md: $pixel-unit * 4; // 16px
+$spacing-lg: $pixel-unit * 8; // 32px
+$spacing-xl: $pixel-unit * 16; // 64px
+$spacing-xxl: $pixel-unit * 24; // 96px
+
+$breakpoint-mobile: 375px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+$breakpoint-wide: 1440px;
+$font-pixel: "VT323", "Press Start 2P", monospace;
+$font-mono: "IBM Plex Mono", "Courier New", monospace;
+$font-system:
+  system-ui,
+  -apple-system,
+  sans-serif;
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-md: 16px;
+$font-size-lg: 20px;
+$font-size-xl: 24px;
+$font-size-xxl: 32px;
+$container-max-width: 1200px;
+$container-padding: $spacing-md;
+$z-stars: 1;
+$z-moon: 2;
+$z-ufo: 3;
+$z-content: 10;
+$z-header: 100;
+$z-modal: 1000;
+$transition-fast: 0.15s ease;
+$transition-base: 0.25s ease;
+$transition-slow: 0.4s ease;
+$terminal-border-width: 2px;
+$terminal-header-height: 32px;

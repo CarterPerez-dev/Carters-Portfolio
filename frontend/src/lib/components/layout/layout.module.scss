@@ -1,0 +1,87 @@
+// ===========================
+// Layout Styles
+// ©AngelaMos | 2025
+// ===========================
+
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.terminalWindow {
+  position: relative;
+  z-index: $z-content;
+  width: 95vw;
+  max-width: 1300px;
+  height: 92vh;
+  margin: 4vh auto;
+  background: $black;
+  border: 2px solid $white;
+  display: flex;
+  flex-direction: column;
+  image-rendering: pixelated;
+
+  @include breakpoint(mobile) {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    border: none;
+  }
+}
+
+.fullscreen {
+  position: relative;
+  z-index: $z-content;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminalHeader {
+  height: $terminal-header-height;
+  background: $white;
+  border-bottom: 2px solid $white;
+  display: flex;
+  align-items: center;
+  padding: 0 $spacing-sm;
+  flex-shrink: 0;
+
+  @include breakpoint(mobile) {
+    display: none;
+  }
+}
+
+.terminalButtons {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+.button {
+  width: 12px;
+  height: 12px;
+  background: $black;
+  display: block;
+}
+
+.content {
+  flex: 1;
+  overflow: hidden auto;
+  padding: $spacing-lg;
+  position: relative;
+
+  @include breakpoint(mobile) {
+    padding: $spacing-md;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $black;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $white;
+    border: 2px solid $black;
+  }
+}

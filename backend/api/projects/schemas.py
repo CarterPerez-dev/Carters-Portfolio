@@ -12,7 +12,7 @@ from pydantic import (
 from typing import Any
 from datetime import datetime
 
-from ...config import Config
+from config import Config
 from .Project import ProjectType
 
 
@@ -119,7 +119,7 @@ class ProjectResponse(BaseModel):
     id: str = Field(..., alias = "_id", description = "Project ID")
     github_id: int = Field(..., description = "GitHub repository ID")
     name: str = Field(..., description = "Project name")
-    description: str = Field(..., description = "Project description")
+    description: str | None = Field(None, description = "Project description")
     long_description: str | None = Field(None, description = "Detailed description")
     github_url: str = Field(..., description = "GitHub repository URL")
     demo_url: str | None = Field(None, description = "Demo URL")
@@ -143,14 +143,31 @@ class ProjectPreviewResponse(BaseModel):
     id: str = Field(..., alias = "_id", description = "Project ID")
     github_id: int = Field(..., description = "GitHub repository ID")
     name: str = Field(..., description = "Project name")
-    description: str = Field(..., description = "Project description")
+    description: str | None = Field(None, description = "Project description")
+    long_description: str | None = Field(None, description = "Detailed description")
     thumbnail: str | None = Field(None, description = "Thumbnail URL")
     github_url: str = Field(..., description = "GitHub repository URL")
+    github_owner: str | None = Field(None, description = "GitHub repository owner")
+    github_full_name: str | None = Field(None, description = "GitHub repository full name")
     demo_url: str | None = Field(None, description = "Demo URL")
+    documentation_url: str | None = Field(None, description = "Documentation URL")
+    case_study_url: str | None = Field(None, description = "Case study URL")
     stars: int = Field(..., description = "GitHub stars count")
+    watchers: int | None = Field(None, description = "GitHub watchers count")
+    forks: int = Field(..., description = "GitHub forks count")
+    open_issues: int | None = Field(None, description = "GitHub open issues count")
     language: str | None = Field(None, description = "Primary programming language")
+    tech_stack: list[str] = Field(..., description = "Technology stack")
+    topics: list[str] = Field(..., description = "GitHub topics")
+    project_type: str = Field(..., description = "Project type")
     featured: bool = Field(..., description = "Featured status")
+    is_visible: bool = Field(default=True, description = "Visibility status")
     activity_score: float = Field(..., description = "Activity score (0-100)")
+    last_updated: datetime | None = Field(None, description = "Last push timestamp")
+    created_at: datetime | None = Field(None, description = "Repository creation timestamp")
+    clone_url: str | None = Field(None, description = "Git clone URL")
+    homepage_url: str | None = Field(None, description = "Project homepage URL")
+    screenshots: list[str] = Field(..., description = "Screenshot URLs")
 
 
 class ProjectListResponse(BaseModel):

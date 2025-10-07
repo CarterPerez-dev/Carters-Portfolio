@@ -9,7 +9,7 @@ from typing import Any
 from flask import request
 from .enums import CacheNamespace
 
-from ....config import Config
+from config import Config
 
 
 class CacheKeyBuilder:

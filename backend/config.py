@@ -27,7 +27,6 @@ class Config:
     BLOG_RATE_LIMIT = "30/minute, 200/hour"
     BLOG_WRITE_RATE_LIMIT = "5/minute, 20/hour"
 
-    # Project Domain Constants
     PROJECT_TITLE_MAX_LENGTH = 200
     PROJECT_DESCRIPTION_MAX_LENGTH = 1000
     PROJECT_GITHUB_REPO_MAX_LENGTH = 100
@@ -38,9 +37,8 @@ class Config:
     PROJECT_RATE_LIMIT = "30/minute, 300/hour"
     PROJECT_WEBHOOK_RATE_LIMIT = "100/minute"
 
-    # GitHub Integration
-    GITHUB_WEBHOOK_SECRET = os.getenv('GITHUB_WEBHOOK_SECRET')
-    GITHUB_ACCESS_TOKEN = os.getenv('GITHUB_ACCESS_TOKEN')
+    GH_WEBHOOK_SECRET = os.getenv('GH_WEBHOOK_SECRET')
+    GH_ACCESS_TOKEN = os.getenv('GH_ACCESS_TOKEN')
 
     PORTFOLIO_EMAIL = os.getenv('PORTFOLIO_EMAIL')
     RESEND_API_KEY = os.getenv('RESEND_API_KEY')
@@ -48,6 +46,7 @@ class Config:
     MONGO_URI = os.getenv('MONGO_URI')
 
     REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
+    REDIS_PASSWORD = os.getenv('REDIS_PASSWORD')
     CACHE_ENABLED = os.getenv('CACHE_ENABLED', 'True').lower() == 'true'
     CACHE_DEFAULT_TTL = 300
     CACHE_BLOG_TTL = 600
@@ -68,9 +67,31 @@ class Config:
     RATELIMIT_HEADERS_ENABLED = True
     RATELIMIT_SWALLOW_ERRORS = True
     FLASK_LIMITER_BURST = "50/second"
+    FLASK_LIMITER_PUBLIC = "1000/minute, 50000/hour"
 
     SECRET_KEY = os.getenv('SECRET_KEY')
     DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', SECRET_KEY)
+    JWT_ACCESS_TOKEN_EXPIRES = 86400
+    JWT_REFRESH_TOKEN_EXPIRES = 2592000
+    JWT_BLACKLIST_TOKEN_EXPIRES = 86400
+    JWT_ALGORITHM = 'HS256'
+
+    ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')
+    ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
+    ADMIN_NAME_MAX_LENGTH = 100
+    ADMIN_PASSWORD_MIN_LENGTH = 8
+    ADMIN_MAX_FAILED_LOGIN_ATTEMPTS = 5
+    ADMIN_LOCKOUT_DURATION_MINUTES = 30
+    ADMIN_AUTH_RATE_LIMIT = "10/minute, 50/hour"
+
+    GH_CLIENT_ID = os.getenv('GH_CLIENT_ID')
+    GH_CLIENT_SECRET = os.getenv('GH_CLIENT_SECRET')
+    BACKEND_URL = os.getenv('BACKEND_URL')
+    FRONTEND_URL = os.getenv('FRONTEND_URL')
+
+    GITHUB_ADMIN_CALLBACK_URL = f"{os.getenv('BACKEND_URL')}/api/v1/admin/auth/github/callback" if os.getenv('BACKEND_URL') else None
 
 
 class DevelopmentConfig(Config):

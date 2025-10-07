@@ -43,10 +43,10 @@ from ._docs import (
     UNPUBLISH_BLOG_DOC,
     LIST_ALL_BLOGS_DOC,
 )
-from ...config import Config
+from config import Config
 
 
-@blogs_ns.route('/')
+@blogs_ns.route('')
 class BlogListResource(Resource):
     """
     Routes for Blog List and Creation

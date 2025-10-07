@@ -1,0 +1,117 @@
+// ===========================
+// Admin Dashboard Styles
+// ©AngelaMos | 2025
+// ===========================
+
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.container {
+  min-height: calc(100vh - 200px);
+  padding: $spacing-lg;
+  padding-left: $spacing-lg;
+
+  @include breakpoint(mobile) {
+    padding: $spacing-md;
+  }
+}
+
+.header {
+  margin-bottom: $spacing-lg;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.sessionInfo {
+  @include mono-text;
+
+  font-size: $font-size-sm;
+  color: $white;
+}
+
+.line {
+  margin-bottom: $spacing-xs;
+  opacity: 0.7;
+}
+
+.prompt {
+  margin-top: $spacing-sm;
+  color: $white;
+  opacity: 1;
+}
+
+.currentTable {
+  color: $white;
+  text-decoration: underline;
+}
+
+.exitButton {
+  @include mono-text;
+
+  font-size: $font-size-xs;
+  color: $white;
+  background: transparent;
+  border: 1px solid $white;
+  padding: $spacing-xs $spacing-sm;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $white;
+    color: $black;
+  }
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1px solid rgba($white, 0.2);
+}
+
+.tab {
+  @include mono-text;
+
+  font-size: $font-size-sm;
+  color: $white;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.activeTab {
+    opacity: 1;
+    text-decoration: underline;
+  }
+}
+
+.separator {
+  @include mono-text;
+
+  color: $white;
+  opacity: 0.3;
+  user-select: none;
+}
+
+.content {
+  animation: fade-in 0.3s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

@@ -28,7 +28,7 @@ from ._docs import (
 )
 
 
-@contact_ns.route('/')
+@contact_ns.route('')
 class ContactListResource(Resource):
     """ 
     Routes for My Porfolio Contact Form

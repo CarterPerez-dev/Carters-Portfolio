@@ -1,0 +1,66 @@
+// ===========================
+// Typing Text Styles
+// ©AngelaMos | 2025
+// ===========================
+
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.typingText {
+  display: inline-block;
+  white-space: pre-wrap;
+  cursor: pointer;
+
+  &.withCursor::after {
+    content: "_";
+    display: inline-block;
+    animation: blink 1s infinite;
+    margin-left: 2px;
+  }
+}
+
+.title {
+  @include pixel-text;
+
+  font-size: $font-size-xl;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.command {
+  @include mono-text;
+
+  font-size: $font-size-md;
+
+  &::before {
+    content: "> ";
+    opacity: 0.8;
+  }
+}
+
+.status {
+  @include mono-text;
+
+  font-size: $font-size-sm;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+.normal {
+  @include mono-text;
+
+  font-size: $font-size-md;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}

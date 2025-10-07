@@ -12,7 +12,7 @@ from datetime import datetime, UTC
 from api.core.database.Base import BaseDocument
 from api.core.validation.exceptions import NotFoundError
 
-from ...config import Config
+from config import Config
 
 
 class ProjectType(str, Enum):
@@ -61,12 +61,12 @@ class Project(BaseDocument):
             'github_repo_name',
             'featured',
             'display_order',
-            '-stars',
+            '-stars_count',
             '-last_push_at',
             'is_visible',
             ('featured',
              '-display_order',
-             '-stars')
+             '-stars_count')
         ]
     }
 
@@ -239,7 +239,7 @@ class Project(BaseDocument):
             self.topics = repo.get('topics', [])
             self.is_archived = repo.get('archived', False)
             self.is_private = repo.get('private', False)
-            self.homepage_url = repo.get('homepage', '')
+            self.homepage_url = repo.get('homepage') or None
 
     def _handle_star_event(self, payload: dict[str, Any]) -> None:
         """
@@ -298,8 +298,8 @@ class Project(BaseDocument):
         project.is_archived = repo_data.get('archived', False)
         project.is_private = repo_data.get('private', False)
         project.github_url = repo_data['html_url']
-        project.clone_url = repo_data.get('clone_url', '')
-        project.homepage_url = repo_data.get('homepage', '')
+        project.clone_url = repo_data.get('clone_url') or None
+        project.homepage_url = repo_data.get('homepage') or None
         project.created_at_github = datetime.fromisoformat(
             repo_data['created_at'].replace('Z',
                                             '+00:00')
@@ -381,11 +381,27 @@ class Project(BaseDocument):
             "github_id": self.github_id,
             "name": self.custom_title or self.github_repo_name,
             "description": self.custom_description or self.github_description,
+            "long_description": self.long_description,
             "thumbnail": self.thumbnail_url,
             "github_url": self.github_url,
+            "github_owner": self.github_owner,
+            "github_full_name": self.github_full_name,
             "demo_url": self.demo_url,
+            "documentation_url": self.documentation_url,
+            "case_study_url": self.case_study_url,
             "stars": self.stars_count,
+            "watchers": self.watchers_count,
+            "forks": self.forks_count,
+            "open_issues": self.open_issues_count,
             "language": self.primary_language,
+            "tech_stack": self.tech_stack,
+            "topics": self.topics,
+            "project_type": self.project_type,
             "featured": self.featured,
-            "activity_score": self.activity_score
+            "activity_score": self.activity_score,
+            "last_updated": self.last_push_at,
+            "created_at": self.created_at_github,
+            "clone_url": self.clone_url,
+            "homepage_url": self.homepage_url,
+            "screenshots": self.screenshots
         }

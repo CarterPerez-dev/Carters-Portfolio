@@ -13,7 +13,7 @@ class CacheNamespace(str, Enum):
     BLOG = 'blog'
     CONTACT = 'contact'
     PROJECT = 'project'
-    GITHUB = 'github'  # For GitHub API responses
+    GITHUB = 'github'
 
     def __str__(self) -> str:
         return self.value

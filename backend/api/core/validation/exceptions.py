@@ -52,6 +52,31 @@ class RateLimitError(AppError):
         super().__init__(message, 429, "RATE_LIMIT_EXCEEDED", context)
 
 
+# --- CATEGORY: Authentication & Authorization Errors (4xx) ---
+class AuthenticationError(AppError):
+    """
+    Raised when authentication fails (invalid credentials, expired token, etc.)
+    """
+    def __init__(
+        self,
+        message: str = "Authentication failed.",
+        context: dict[str, Any] | None = None
+    ) -> None:
+        super().__init__(message, 401, "AUTHENTICATION_ERROR", context)
+
+
+class AuthorizationError(AppError):
+    """
+    Raised when a user lacks permission for a resource or action
+    """
+    def __init__(
+        self,
+        message: str = "You do not have permission to perform this action.",
+        context: dict[str, Any] | None = None
+    ) -> None:
+        super().__init__(message, 403, "AUTHORIZATION_ERROR", context)
+
+
 # --- CATEGORY: Resource & State Errors (4xx) ---
 class NotFoundError(AppError):
     """

@@ -1,0 +1,264 @@
+// ===========================
+// Contact Page Styles
+// ©AngelaMos | 2025
+// ===========================
+
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.container {
+  min-height: calc(100vh - 200px);
+  padding: $spacing-lg;
+  padding-top: $spacing-md;
+  padding-left: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint(mobile) {
+    padding: $spacing-md;
+    padding-top: $spacing-md;
+  }
+}
+
+.terminal {
+  width: 100%;
+  max-width: 700px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.sshSession {
+  margin-bottom: $spacing-lg;
+}
+
+.commandLine {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-md;
+  margin-bottom: $spacing-sm;
+}
+
+.passwordLine {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-md;
+  margin-bottom: $spacing-sm;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.password {
+  letter-spacing: 2px;
+}
+
+.authLine {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-xs;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.authenticated {
+  color: #0f0;
+  font-style: normal;
+  opacity: 1;
+}
+
+.welcomeLine {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-md;
+  margin-bottom: $spacing-md;
+  padding-top: $spacing-xs;
+}
+
+.contactForm {
+  padding-left: $spacing-md;
+  animation: fade-in 0.5s ease;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+  max-width: 650px;
+
+  > :nth-child(5),
+  > :nth-child(6),
+  > :nth-child(7) {
+    grid-column: 1 / -1;
+  }
+}
+
+.formGroup {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+
+  @include breakpoint(mobile) {
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  label {
+    @include mono-text;
+
+    color: $white;
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-xs;
+  }
+}
+
+.input,
+.textarea {
+  @include mono-text;
+  @include pixel-border(1px);
+
+  background: $black;
+  color: $white;
+  font-size: $font-size-sm;
+  padding: $spacing-xs $spacing-sm;
+  width: 100%;
+  transition: border-color $transition-base;
+
+  &::placeholder {
+    color: rgba($white, 0.3);
+    font-size: $font-size-xs;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $white;
+    box-shadow: 0 0 0 1px $white;
+  }
+
+  @include breakpoint(mobile) {
+    max-width: 100%;
+  }
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+  max-height: 150px;
+  font-family: $font-mono;
+  line-height: 1.4;
+}
+
+.commandPrompt {
+  grid-column: 1 / -1;
+  margin-top: $spacing-sm;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.prompt {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-md;
+}
+
+.submitButton {
+  @include mono-text;
+
+  background: transparent;
+  border: none;
+  color: $white;
+  font-size: $font-size-sm;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: transform $transition-base;
+  display: inline-block;
+  outline: none;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: transparent;
+    color: $white;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include focus-visible;
+}
+
+.successMessage {
+  @include mono-text;
+
+  color: #0f0;
+  font-size: $font-size-sm;
+  padding-left: $spacing-md;
+  margin-top: $spacing-lg;
+  animation: fade-in 0.5s ease;
+
+  > div {
+    margin-bottom: $spacing-xs;
+  }
+}
+
+.alternativeContact {
+  margin-top: $spacing-md;
+  padding-top: $spacing-md;
+  border-top: 1px solid rgba($white, 0.2);
+}
+
+.sectionTitle {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-md;
+  margin-bottom: $spacing-sm;
+  opacity: 0.8;
+}
+
+.contactOutput {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-sm;
+  padding-left: $spacing-md;
+
+  > div {
+    margin-bottom: $spacing-xs;
+    opacity: 0.9;
+  }
+}
+
+.contactLink {
+  @include mono-text;
+
+  color: $white;
+  text-decoration: underline;
+  font-style: italic;
+  cursor: pointer;
+  transition: opacity $transition-base;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

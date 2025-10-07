@@ -9,7 +9,7 @@ import logging
 from typing import Any
 from flask import Flask, current_app
 
-from ....config import Config
+from config import Config
 
 
 logger = logging.getLogger(__name__)
@@ -62,8 +62,10 @@ class FlaskRedis:
             return
 
         try:
+            redis_password = current_app.config.get('REDIS_PASSWORD')
             self._connection_pool = redis.ConnectionPool.from_url(
                 current_app.config['REDIS_URL'],
+                password = redis_password,
                 max_connections = current_app.config['REDIS_MAX_CONNECTIONS'],
                 socket_connect_timeout = current_app.
                 config['REDIS_SOCKET_CONNECT_TIMEOUT'],

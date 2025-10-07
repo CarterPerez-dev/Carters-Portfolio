@@ -1,0 +1,87 @@
+# �AngelaMos | 2025
+# Production Compose
+
+services:
+  backend:
+    container_name: backend_service_prod
+    build:
+      context: ./backend
+      dockerfile: ops/Dockerfile.prod
+    ports:
+      - "${BACKEND_PORT:-5000}:5000"
+    environment:
+      - ENVIRONMENT=production
+    env_file:
+      - .env.prod
+    networks:
+      - my_network
+    depends_on:
+      - redis
+    restart: always
+
+  nginx:
+    container_name: nginx_prod
+    build:
+      context: ./frontend
+      dockerfile: ops/Dockerfile.prod
+    ports:
+      - "${NGINX_PORT:-80}:80"
+      - "${NGINX_ALT_PORT:-8080}:8080"
+    volumes:
+      - ./conf/nginx/conf.nginx:/etc/nginx/nginx.conf
+      - ./conf/nginx/prod:/etc/nginx/sites-enabled
+      - ./conf/nginx/logs:/var/log/nginx/
+    networks:
+      - my_network
+    depends_on:
+      - backend
+    restart: always
+
+  # Optional: Local MongoDB (uncomment if not using Atlas)
+  # mongo:
+  #   container_name: mongo_service_prod
+  #   image: mongo:7.0
+  #   ports:
+  #     - "${MONGO_PORT:-27017}:27017"
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=admin
+  #     - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD:-portfolio_mongo_pass_prod}
+  #     - MONGO_INITDB_DATABASE=portfolio
+  #   volumes:
+  #     - mongo_data:/data/db
+  #   networks:
+  #     - my_network
+  #   restart: always
+
+  redis:
+    container_name: redis_service_prod
+    image: redis:7.2
+    ports:
+      - "${REDIS_PORT:-6382}:6379"
+    volumes:
+      - ./conf/redis/portfolio.redis:/usr/local/etc/redis/redis.conf
+      - redis_data:/data
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--requirepass", "${REDIS_PASSWORD}", "--appendonly", "yes", "--protected-mode", "yes", "--bind", "0.0.0.0"]
+    env_file:
+      - .env.prod
+    networks:
+      - my_network
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 120s
+      timeout: 10s
+      retries: 3
+
+networks:
+  my_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.29.0.0/16
+
+volumes:
+  redis_data:
+  # Uncomment if using local MongoDB
+  # mongo_data:

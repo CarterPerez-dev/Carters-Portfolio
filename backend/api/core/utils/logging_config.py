@@ -37,25 +37,16 @@ def setup_logging():
                 'formatter': 'default',
                 'filters': ['request_id'],
                 'stream': 'ext://sys.stdout'
-            },
-            'file': {
-                'class': 'logging.handlers.RotatingFileHandler',
-                'level': 'DEBUG',
-                'formatter': 'detailed',
-                'filters': ['request_id'],
-                'filename': 'logs/portfolio.log',
-                'maxBytes': 10485760,
-                'backupCount': 5
             }
         },
         'loggers': {
             '': {
                 'level': 'INFO',
-                'handlers': ['console', 'file']
+                'handlers': ['console']
             },
             'api': {
                 'level': 'DEBUG',
-                'handlers': ['console', 'file'],
+                'handlers': ['console'],
                 'propagate': False
             },
             'werkzeug': {

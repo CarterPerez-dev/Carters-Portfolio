@@ -16,10 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/core/*": ["./src/core/*"],
-      "@/domains/*": ["./src/domains/*"],
-      "@user": ["./src/user/index.ts"],
-      "@/user/*": ["./src/user/*"],
+      "@/lib/*": ["./src/lib/*"],
     },
     "strict": true,
     "noUnusedLocals": true,

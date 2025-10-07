@@ -15,7 +15,7 @@ from api.core.cache import (
 from api.core.validation.exceptions import (
     NotFoundError,
 )
-from ...config import Config
+from config import Config
 from .Project import Project
 from .types import (
     ProjectDict,

@@ -6,9 +6,9 @@ Rate Limiting Setup
 from __future__ import annotations
 
 import logging
+from flask_limiter import Limiter
 from typing import Any, TYPE_CHECKING
 from flask import Flask, jsonify, Response
-from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
 if TYPE_CHECKING:
@@ -29,7 +29,9 @@ def setup_rate_limiting(app: FlaskWithLimiter) -> Limiter:
         app=app,
         storage_uri=app.config['RATELIMIT_STORAGE_URI'],
         strategy=app.config['RATELIMIT_STRATEGY'],
-        default_limits=app.config['FLASK_LIMITER_BURST'],
+        default_limits=[
+            app.config['FLASK_LIMITER_BURST'],
+        ],
         headers_enabled=app.config['RATELIMIT_HEADERS_ENABLED'],
         swallow_errors=app.config['RATELIMIT_SWALLOW_ERRORS'],
     )

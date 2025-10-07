@@ -11,7 +11,7 @@ from api.core.validation.exceptions import (
 from api.core.cache import cached, cache_invalidate
 from api.core.cache.enums import CacheNamespace
 
-from ...config import Config
+from config import Config
 from .Blog import Blog
 from .types import (
     BlogDict, 

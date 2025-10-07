@@ -1,0 +1,149 @@
+// ===========================
+// Blogs Section Styles
+// ©AngelaMos | 2025
+// ===========================
+
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.container {
+  @include mono-text;
+
+  font-size: $font-size-sm;
+  color: $white;
+}
+
+.loading,
+.error,
+.empty {
+  @include mono-text;
+
+  font-size: $font-size-sm;
+  opacity: 0.7;
+  padding: $spacing-md 0;
+}
+
+.error {
+  color: #f00;
+}
+
+.count {
+  margin-bottom: $spacing-sm;
+  opacity: 0.6;
+  font-size: $font-size-xs;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  margin-bottom: $spacing-md;
+}
+
+.table {
+  min-width: 900px;
+  white-space: nowrap;
+  border-top: 1px solid $white;
+  border-bottom: 1px solid $white;
+  padding: $spacing-md 0;
+}
+
+.headerRow {
+  color: $white;
+  border-bottom: 1px solid $white;
+  padding-bottom: $spacing-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.headerCells {
+  font-weight: bold;
+  color: $white;
+  padding: $spacing-sm 0;
+}
+
+.body {
+  .rowGroup {
+    position: relative;
+    border-bottom: 1px solid rgba($white, 0.1);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .row {
+    color: $white;
+    opacity: 0.9;
+    transition: all $transition-fast;
+    padding: $spacing-sm 0;
+    line-height: 1.6;
+
+    &:hover {
+      opacity: 1;
+      background: rgba($white, 0.05);
+    }
+  }
+
+  .rowActions {
+    display: none;
+    padding: $spacing-xs 0 $spacing-sm 0;
+    gap: $spacing-md;
+  }
+
+  .rowGroup:hover .rowActions {
+    display: flex;
+  }
+
+  %action-btn {
+    @include mono-text;
+
+    font-size: $font-size-sm;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity $transition-fast;
+
+    &:hover:not(:disabled) {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+
+  .actionBtn {
+    @extend %action-btn;
+
+    color: $white;
+  }
+
+  .deleteBtn {
+    @extend %action-btn;
+
+    color: #f00;
+  }
+}
+
+.actions {
+  margin-top: $spacing-md;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.prompt {
+  color: $white;
+  opacity: 0.5;
+}
+
+.hint {
+  @include mono-text;
+
+  font-size: $font-size-xs;
+  color: $white;
+  opacity: 0.5;
+  font-style: italic;
+}
