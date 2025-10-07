@@ -11,22 +11,17 @@ dependencies = [
 
     "annotated-types==0.7.0",
     "anyio==4.10.0",
-    "Authlib==1.6.1",
     
     "bcrypt==4.3.0",
     "bidict==0.23.1",
-    "blinker==1.9.0",
     
-    "celery==5.5.3",
     "certifi==2025.8.3",
     "cffi==1.17.1",
-    "click==8.2.1",
     "cryptography==45.0.6",
     
     "dnspython==2.7.0",
     "email-validator==2.2.0",
     
-    "faker==37.5.3",
     "Flask==3.1.1",
     "Flask-CORS==6.0.1",
     "Flask-JWT-Extended==4.7.1",
@@ -34,46 +29,35 @@ dependencies = [
     "Flask-Migrate==4.1.0",
     "Flask-PyMongo==3.0.1",
     "flask-restx==1.3.0",
-    "Flask-Session==0.8.0",
-    "Flask-SocketIO==5.5.1",
     
-    "geoip2==5.1.0",
     "gevent==25.5.1",
-    "google-genai==1.29.0",
-    "greenlet==3.2.4",
     
     "httpx==0.28.1",
     "idna==3.10",
-    "itsdangerous==2.2.0",
-    "Jinja2==3.1.6",
     
     "MarkupSafe==3.0.2",
     "marshmallow==4.0.0",
     "mongoengine==0.29.1",
-    "numpy==2.3.2",
     
     "psutil==7.0.0",
     "pydantic==2.11.7",
-    "PyJWT==2.10.1",
     "pymongo[srv]==4.14.0",
     "python-dotenv==1.1.1",
-    "python-engineio==4.12.2",
-    "python-socketio==5.13.0",
     "pytz==2025.2",
-    
+    "Jinja2==3.1.6",
+        
     "redis==6.4.0",
     "requests==2.32.4",
     "resend==2.12.0",
     
     "schedule==1.2.2",
-    "simple-websocket==1.1.0",
     
     "tqdm==4.67.1",
     "typing_extensions==4.14.1",
     "tzdata==2025.2",
     
     "user-agents==2.2.0",
-    "uwsgi==2.0.30",
+    "gunicorn==23.0.0",
     "Werkzeug==3.1.3",
 ]
 
@@ -84,40 +68,28 @@ dev = [
     
     "factory-boy==3.3.3",
     "flask-debugtoolbar==0.16.0",
-    "freezegun==1.5.5",
     
     "ipython==9.4.0",
-    "mongomock==4.3.0",
     "mypy==1.17.1",
     
     "pip-audit==2.9.0",
     "pip-tools==7.5.0",
     "pip-review==1.3.0",
     "pre-commit==4.3.0",
-    "pytest==8.4.1",
-    "pytest-asyncio==1.1.0",
-    "pytest-cov==6.2.1",
-    "pytest-dotenv==0.5.2",
-    "pytest-env==1.1.5",
-    "pytest-flask==1.3.0",
-    "pytest-mock==3.14.1",
     "pylint==3.3.8",
-    "pylint-celery==0.3",
     "pylint-flask==0.6",
     "pylint-mongoengine==0.6.0",
     "pylint-per-file-ignores==1.4.0",
     "pylint-plugin-utils==0.9.0",
     "pylint-pydantic==0.3.5",
     
-    "radon==6.0.1",
     "ruff==0.12.8",
-    
+
     "types-pytz==2025.2.0.20250809",
     "types-PyYAML==6.0.12.20250809",
     "types-redis==4.6.0.20241004",
     "types-requests==2.32.4.20250809",
     
-    "vulture==2.14",
     "watchdog[watchmedo]==6.0.0",
     "yapf==0.43.0",
 ]
@@ -128,7 +100,7 @@ requires = ["setuptools>=80.9.0", "wheel>=0.45.1"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-py-modules = ["CarterRun", "config"]
+py-modules = ["Run", "config"]
 
 [tool.setuptools.packages.find]
 include = ["api", "app"]
@@ -200,7 +172,10 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["ALL"]
-"app/restx/*" = ["E402", "F401", "W605"]  
+"app/restx/*" = ["E402", "F401", "W605"]
+"api/projects/Project.py" = ["ARG002"]  # Unused method arguments in webhook handlers
+"api/projects/github_sync.py" = ["SIM102"]  # Nested if for PORTFOLIO_HIDE check
+"app/http/jwt_config.py" = ["ARG001"]  # jwt_header required by Flask-JWT-Extended callback signature  
 
 [tool.mypy]
 python_version = "3.11"
@@ -223,6 +198,42 @@ exclude = [
     ".venv",
     "venv",
 ]
+
+[[tool.mypy.overrides]]
+module = ["api.*.routes", "api.*.*.routes"]
+disable_error_code = ["attr-defined"]
+
+[[tool.mypy.overrides]]
+module = ["app.http.cors"]
+disable_error_code = ["method-assign"]
+
+[[tool.mypy.overrides]]
+module = ["api.*.Blog", "api.*.Contact", "api.*.Project", "api.admin.AdminUser"]
+disable_error_code = ["dict-item", "no-any-return"]
+
+[[tool.mypy.overrides]]
+module = ["api.core.database.connection"]
+disable_error_code = ["no-any-return"]
+
+[[tool.mypy.overrides]]
+module = ["api.*.controllers"]
+disable_error_code = ["arg-type", "typeddict-item", "no-any-return"]
+
+[[tool.mypy.overrides]]
+module = ["api.projects.github_sync"]
+disable_error_code = ["arg-type", "no-any-return"]
+
+[[tool.mypy.overrides]]
+module = ["api.core.cache.*"]
+disable_error_code = ["attr-defined", "no-any-return"]
+
+[[tool.mypy.overrides]]
+module = ["api.core.middleware.request_id"]
+disable_error_code = ["no-any-return"]
+
+[[tool.mypy.overrides]]
+module = ["app.factory"]
+disable_error_code = ["arg-type"]
 
 [tool.bandit]
 exclude_dirs = [
@@ -309,9 +320,16 @@ disable = [
 ]
 
 per-file-ignores = [
-    "api/core/middleware/schema.py:R0911,W0718",   # Ignore broad exception catching in core infrastructure
-    "api/core/services/EmailSender:W0718",   # Ignore broad exception catching
+    "api/core/middleware/schema.py:R0911,W0718",   # Ignore broad exception catching
+    "api/core/services/EmailSender.py:W0718",   # Ignore broad exception catching
+    "api/contact/controllers.py:W0718", # Ignore broad exception catching
     "app/restx/api.py:E0611,C0415,W061,E0401",   # Ignore no name
+    "Run.py:W0105", #ASCII art
+    "app/factory.py:C0413",  # wrong-import-position - gevent monkey patching requires this
+    "api/core/cache/decorators.py:R0917",  # too-many-positional-arguments - config decorator needs these
+    "api/projects/Project.py:R0902",  # too-many-attributes - Project model needs all these fields
+    "api/projects/github_sync.py:W0718",  # broad exception in sync_all_repos - need to continue on any error
+    "app/handlers/rate_handlers.py:C0412",   # Ignore not grouped imports
 ]
 
 [tool.pylint.format]

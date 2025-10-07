@@ -1,0 +1,104 @@
+// ===========================
+// Header Styles
+// ©AngelaMos | 2025
+// ===========================
+
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.header {
+  border-bottom: 1px solid $white;
+  padding: $spacing-md $spacing-lg;
+  background: $black;
+
+  @include breakpoint(mobile) {
+    padding: $spacing-md;
+  }
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $spacing-lg;
+
+  @include breakpoint(mobile) {
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+}
+
+.brand {
+  @include pixel-text;
+
+  font-size: $font-size-lg;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.redDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #f00;
+  border-radius: 4px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  animation: blink 2s infinite;
+}
+
+.brandText {
+  letter-spacing: 2px;
+}
+
+.navList {
+  display: flex;
+  gap: $spacing-lg;
+  align-items: center;
+
+  @include breakpoint(mobile) {
+    gap: $spacing-md;
+  }
+}
+
+.navLink {
+  @include mono-text;
+
+  font-size: $font-size-sm;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: $spacing-xs $spacing-sm;
+  border: 1px solid transparent;
+  transition: all $transition-base;
+
+  &:hover {
+    border-color: $white;
+  }
+
+  &.active {
+    background: $white;
+    color: $black;
+  }
+
+  &.focused {
+    border-color: $white;
+    outline: none;
+  }
+}
+
+.dollarSign {
+  color: #f00;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}

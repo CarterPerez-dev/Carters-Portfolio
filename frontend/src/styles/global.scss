@@ -1,0 +1,167 @@
+// ===========================
+// Global Styles
+// ©AngelaMos | 2025
+// ===========================
+
+@use "variables" as *;
+@use "mixins" as *;
+@use "animations" as *;
+
+@import "https://fonts.googleapis.com/css2?family=VT323&display=swap";
+@import "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: $black;
+  color: $white;
+  font-family: $font-mono;
+  font-size: $font-size-md;
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include pixel-text;
+
+  font-weight: normal;
+  line-height: 1.2;
+  margin-bottom: $spacing-md;
+}
+
+h1 {
+  font-size: $font-size-xxl;
+}
+
+h2 {
+  font-size: $font-size-xl;
+}
+
+h3 {
+  font-size: $font-size-lg;
+}
+
+h4 {
+  font-size: $font-size-md;
+}
+
+h5 {
+  font-size: $font-size-sm;
+}
+
+h6 {
+  font-size: $font-size-xs;
+}
+
+p {
+  margin-bottom: $spacing-md;
+}
+
+a {
+  color: $white;
+  text-decoration: none;
+  transition: opacity $transition-base;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  @include focus-visible;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: $black;
+  border: 1px solid $white;
+  padding: $spacing-sm;
+
+  @include focus-visible;
+}
+
+button {
+  cursor: pointer;
+  padding: $spacing-sm $spacing-md;
+}
+
+::selection {
+  background: $white;
+  color: $black;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $white;
+  border: 2px solid $black;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $white;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.pixel-font {
+  @include pixel-text;
+}
+
+.mono-font {
+  @include mono-text;
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.container {
+  @include container;
+}

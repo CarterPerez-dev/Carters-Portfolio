@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN python3 -m venv /venv
 ENV VIRTUAL_ENV="/venv"
 ENV PATH="/venv/bin:$PATH"
-ENV FLASK_APP=CarterRun.py
+ENV FLASK_APP=Run.py
 ENV PYTHONDONTWRITEBYTECODE=1 
 ENV PYTHONUNBUFFERED=1 
 
@@ -24,11 +24,11 @@ COPY pyproject.toml .
 
 RUN /venv/bin/pip install --upgrade pip setuptools wheel
 RUN /venv/bin/pip install -e ".[dev]"
-
 COPY . .
 
-RUN chmod +x CarterRun.py
+RUN mkdir -p /app/logs && chmod 755 /app/logs
+RUN chmod +x Run.py
 
 EXPOSE 5000
 
-CMD ["watchmedo", "auto-restart", "--directory=.", "--pattern=*.py", "--recursive", "--", "python", "CarterRun.py"]
+CMD ["watchmedo", "auto-restart", "--directory=.", "--pattern=*.py", "--recursive", "--", "python", "Run.py"]

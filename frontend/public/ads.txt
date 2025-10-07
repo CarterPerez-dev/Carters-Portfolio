@@ -1,0 +1,8 @@
+# ads.txt for carterperez.dev
+# This site does not currently run any advertising.
+# No authorized digital sellers.
+
+# If you see ads on this domain, they are unauthorized.
+# Contact: carter@carterperez.dev
+
+placeholder.example.com, placeholder, DIRECT

@@ -54,6 +54,28 @@ class ContactCreateRequest(BaseModel):
         description = "Contact's LinkedIn profile URL (optional)"
     )
 
+    @validator('linkedin', pre=True)
+    def validate_linkedin(cls, v):
+        """
+        Trim whitespace and convert empty strings to None for optional URL field
+        """
+        if not v or (isinstance(v, str) and not v.strip()):
+            return None
+        if isinstance(v, str):
+            return v.strip()
+        return v
+
+    @validator('email', pre=True)
+    def validate_email(cls, v):
+        """
+        Trim whitespace from email if provided
+        """
+        if not v:
+            return None
+        if isinstance(v, str):
+            return v.strip()
+        return v
+
     @validator('subject', 'body')
     def strip_whitespace(cls, v: str) -> str:
         """

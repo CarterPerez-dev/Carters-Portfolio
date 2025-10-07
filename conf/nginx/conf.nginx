@@ -1,5 +1,5 @@
-user www-data;
-worker_rlimit_nofile 65535;  
+user nginx;
+worker_rlimit_nofile 65535;
 worker_processes auto;
 events {
     worker_connections 4096; 

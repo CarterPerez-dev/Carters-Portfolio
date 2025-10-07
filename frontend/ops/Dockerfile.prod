@@ -9,6 +9,8 @@ RUN npm install --include=dev
 COPY . .
 RUN npm run build
 
-RUN ls -la /app/build
+FROM nginx:alpine
 
-CMD ["sh", "-c", "echo 'User app build complete - files available in /app/build'"]
+COPY --from=builder /app/build /usr/share/nginx/html
+
+CMD ["nginx", "-g", "daemon off;"]

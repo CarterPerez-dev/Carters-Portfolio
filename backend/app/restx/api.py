@@ -9,8 +9,9 @@ from flask_restx import Api
 
 rest = Api(
     version='v1',
-    title='Portfolio API',
-    description='Portfolio Website API',
+    prefix='/v1',
+    title='Carters Portfolio API',
+    description='Carters Portfolio Website API',
     doc='/docs/',
     authorizations={
         'BearerAuth': {
@@ -21,8 +22,8 @@ rest = Api(
         }
     },
     security='BearerAuth',
-    contact='your-email@domain.com',
-    contact_email='your-email@domain.com',
+    contact='carterperez@certgames.com',
+    contact_email='carterperez@certgames.com',
     license='MIT',
 )
 
@@ -37,14 +38,17 @@ def init_api(app: Flask) -> Api:
         projects_ns,
         contact_ns,
         blogs_ns,
+        admin_auth_ns,
     )
-    
+
     import api.contact.routes
     import api.projects.routes
     import api.blogs.routes
-    
+    import api.admin.routes
+
     rest.add_namespace(projects_ns)
     rest.add_namespace(contact_ns)
     rest.add_namespace(blogs_ns)
+    rest.add_namespace(admin_auth_ns)
 
     return rest

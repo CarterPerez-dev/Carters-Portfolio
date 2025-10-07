@@ -1,0 +1,414 @@
+// ===========================
+// Projects Page Styles - NPM Registry Theme
+// ©AngelaMos | 2025
+// ===========================
+
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: $black;
+  padding: 2rem;
+  padding-top: $spacing-lg;
+}
+
+.terminal {
+  width: 100%;
+  max-width: 1200px;
+  font-family: $font-mono;
+  color: $white;
+  line-height: 1.6;
+}
+
+.commandLine {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-md;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.syncButton {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: $black;
+  color: $white;
+  border: 1px solid $white;
+  padding: 0.5rem 1rem;
+  font-family: $font-mono;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 100;
+
+  &:hover {
+    background: $white;
+    color: $black;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.loading {
+  color: $white;
+  font-style: italic;
+  animation: pulse 1s infinite;
+  opacity: 0.6;
+}
+
+.error {
+  color: $white;
+  background: $black;
+  border: 1px solid $white;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: $font-mono;
+}
+
+.resultCount {
+  color: $white;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgb(255 255 255 / 20%);
+  opacity: 0.6;
+}
+
+.projectsList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.package {
+  border: 1px solid rgb(255 255 255 / 20%);
+  padding: 1.5rem;
+  background: $black;
+  transition:
+    border-color $transition-base,
+    transform $transition-base;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $white;
+    transform: translateY(-2px);
+  }
+
+  &.selected {
+    border-color: $white;
+    transform: translateY(-2px);
+  }
+}
+
+.packageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.packageName {
+  color: $white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.packageMeta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  color: $white;
+  font-size: 13px;
+  opacity: 0.7;
+
+  .stars {
+    color: #ffd700;
+    font-weight: 600;
+  }
+
+  .watchers {
+    color: $white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    .icon {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .forks {
+    color: $white;
+    font-weight: 600;
+  }
+
+  .separator {
+    color: $white;
+    opacity: 0.3;
+  }
+}
+
+.packageDescription {
+  color: $white;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.packageDetails {
+  margin-top: 0.5rem;
+}
+
+.detailLine {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+  font-size: 13px;
+
+  .dots {
+    color: $white;
+    letter-spacing: 2px;
+    overflow: hidden;
+    max-width: 100%;
+    opacity: 0.2;
+  }
+
+  .label {
+    color: $white;
+    min-width: 80px;
+    opacity: 0.6;
+  }
+
+  .value {
+    color: $white;
+    opacity: 0.9;
+  }
+}
+
+.activityBar {
+  color: $white;
+  font-size: 10px;
+  letter-spacing: -2px;
+}
+
+.activityScore {
+  color: $white;
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 13px;
+
+  .label {
+    color: $white;
+    opacity: 0.6;
+  }
+
+  .link {
+    color: $white;
+    text-decoration: underline;
+    transition: transform $transition-base;
+    opacity: 0.9;
+
+    &:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+  }
+
+  .separator {
+    color: $white;
+    opacity: 0.3;
+    margin: 0 0.25rem;
+  }
+}
+
+.featured {
+  margin-top: 0.75rem;
+}
+
+.featuredBadge {
+  display: inline-block;
+  background: $black;
+  color: #ffd700;
+  border: 1px solid $white;
+  padding: 0.25rem 0.75rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.expandedDetails {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(255 255 255 / 20%);
+  animation: fade-in 0.3s ease-in;
+  margin-bottom: 1rem;
+}
+
+.detailSection {
+  margin-bottom: 1rem;
+}
+
+.longDescription {
+  color: $white;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+  font-size: 13px;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  color: $white;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 0.5rem;
+
+  .chevron {
+    width: 20px;
+    height: 20px;
+    transition:
+      transform $transition-base,
+      opacity $transition-base;
+  }
+
+  &:hover .chevron {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+.thumbnail {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin-top: 0.5rem;
+  border: 1px solid rgb(255 255 255 / 20%);
+}
+
+.screenshots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.screenshot {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgb(255 255 255 / 20%);
+  transition: transform $transition-base;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.navigation {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(255 255 255 / 20%);
+  display: flex;
+  gap: 2rem;
+  color: $white;
+  font-size: 13px;
+  opacity: 0.7;
+
+  span {
+    display: inline-block;
+    background: $black;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid rgb(255 255 255 / 30%);
+  }
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (width <= 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .terminal {
+    font-size: 12px;
+  }
+
+  .packageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .packageName {
+    font-size: 14px;
+  }
+
+  .navigation {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .syncButton {
+    position: static;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}

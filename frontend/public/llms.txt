@@ -1,0 +1,32 @@
+# llms.txt for carterperez.dev
+# AI/LLM Crawler Policy
+# Last updated: 2025-10-05
+
+# This site allows responsible AI/LLM crawling with attribution.
+# All content is copyrighted by Carter Perez and ©AngelaMos unless otherwise stated.
+
+# ALLOWED:
+# - Indexing for search and discovery
+# - Code snippets with attribution (link back to source)
+# - Blog post summarization with attribution
+
+# NOT ALLOWED:
+# - Training commercial models without permission
+# - Republishing full articles without attribution
+# - Scraping for competitive analysis
+
+# User-Agent: *
+# Allow: /blog/
+# Allow: /projects/
+# Allow: /root/
+# Allow: /experience/
+# Allow: /contact/
+# Allow: /
+# Disallow: /api/
+# Disallow: /admin/
+
+# For licensing inquiries: inquiry@certgames.com
+# Attribution required: Link to https://carterperez.dev/
+
+# Preferred citation format:
+# ©AngelaMos | 2025 | CarterPerez-dev

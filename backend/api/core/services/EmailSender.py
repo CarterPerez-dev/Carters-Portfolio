@@ -3,8 +3,10 @@ Email Service using Resend API
 /api/core/services/EmailSender.py
 """
 
+import os
 import requests
 import logging
+from jinja2 import Template
 
 
 logger = logging.getLogger(__name__)
@@ -46,7 +48,7 @@ class EmailSender:
             )
 
             payload = {
-                "from": f"{from_name} <noreply@certgames.com.com>",
+                "from": f"{from_name} <noreply@certgames.com>",
                 "to": [self.portfolio_email],
                 "subject": email_subject,
                 "html": html_body
@@ -91,61 +93,26 @@ class EmailSender:
         linkedin: str | None
     ) -> str:
         """
-        Build HTML email template for contact form submission
+        Build HTML email template for contact form submission using Jinja2
         """
-        contact_info = []
+        template_path = os.path.join(
+            os.path.dirname(__file__),
+            'templates',
+            'contact_email.html'
+        )
 
-        if name:
-            contact_info.append(f"<strong>Name:</strong> {name}")
-        if contact_email:
-            contact_info.append(
-                f"<strong>Email:</strong> <a href='mailto:{contact_email}'>{contact_email}</a>"
-            )
-        if phone:
-            contact_info.append(f"<strong>Phone:</strong> {phone}")
-        if linkedin:
-            contact_info.append(
-                f"<strong>LinkedIn:</strong> <a href='{linkedin}' target='_blank'>{linkedin}</a>"
-            )
+        with open(template_path, encoding='utf-8') as f:
+            template_content = f.read()
 
-        contact_section = "<br>".join(
-            contact_info
-        ) if contact_info else "<em>No contact information provided</em>"
+        template = Template(template_content)
 
-        html_template = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <title>Portfolio Contact Form</title>
-        </head>
-        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2 style="color: #333;">New Contact Form Submission</h2>
+        html = template.render(
+            name=name,
+            subject=subject,
+            body=body,
+            contact_email=contact_email,
+            phone=phone,
+            linkedin=linkedin
+        )
 
-            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
-                <h3 style="margin-top: 0; color: #495057;">Subject: {subject}</h3>
-            </div>
-
-            <div style="margin: 20px 0;">
-                <h4 style="color: #495057;">Message:</h4>
-                <div style="background-color: #ffffff; padding: 15px; border-left: 4px solid #007bff; border-radius: 0 5px 5px 0;">
-                    {body.replace(chr(10), '<br>')}
-                </div>
-            </div>
-
-            <div style="margin: 20px 0;">
-                <h4 style="color: #495057;">Contact Information:</h4>
-                <div style="padding: 10px 0;">
-                    {contact_section}
-                </div>
-            </div>
-
-            <hr style="margin: 30px 0; border: none; border-top: 1px solid #dee2e6;">
-            <p style="color: #6c757d; font-size: 14px; margin: 0;">
-                This email was sent from your portfolio website contact form.
-            </p>
-        </body>
-        </html>
-        """
-
-        return html_template
+        return html

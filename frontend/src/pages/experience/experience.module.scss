@@ -1,0 +1,127 @@
+// ===========================
+// Experience Page Styles
+// ©AngelaMos | 2025
+// ===========================
+
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.container {
+  min-height: calc(100vh - 200px);
+  padding: $spacing-lg;
+  padding-top: $spacing-lg;
+  padding-left: $spacing-lg;
+
+  @include breakpoint(mobile) {
+    padding: $spacing-md;
+    padding-top: $spacing-md;
+  }
+}
+
+.terminal {
+  width: 100%;
+  max-width: 900px;
+  margin: 0;
+}
+
+.gitCommand {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-md;
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-md;
+  border-bottom: 1px solid rgba($white, 0.2);
+}
+
+.commits {
+  animation: fade-in 0.5s ease;
+}
+
+.commit {
+  margin-bottom: $spacing-xl;
+  padding-bottom: $spacing-lg;
+  border-bottom: 1px solid rgba($white, 0.1);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.commitHash {
+  @include mono-text;
+
+  color: #ffa500; // Git's yellow/orange for commit hashes
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-xs;
+}
+
+.head {
+  color: #0f0; // Git's green for HEAD
+  font-weight: normal;
+}
+
+.commitMeta {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-md;
+  opacity: 0.8;
+
+  > div {
+    margin-bottom: 2px;
+  }
+}
+
+.commitMessage {
+  padding-left: $spacing-md;
+  margin-top: $spacing-md;
+}
+
+.jobTitle {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-md;
+  font-weight: 600;
+  margin-bottom: $spacing-md;
+}
+
+.description {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-sm;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin-bottom: $spacing-xs;
+    line-height: 1.6;
+  }
+}
+
+.techStack {
+  @include mono-text;
+
+  color: $white;
+  font-size: $font-size-sm;
+  margin-top: $spacing-md;
+  padding-top: $spacing-sm;
+  opacity: 0.9;
+  font-style: italic;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

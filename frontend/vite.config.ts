@@ -12,8 +12,8 @@ export default defineConfig({
     alias: {
       '@': '/src',
       '@/styles': '/src/styles',
-      '@/core': '/src/core/',
-
+      '@/lib': '/src/lib/',
+      '@/constants': '/src/constants',
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
@@ -25,8 +25,6 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
-          ui: ['@mui/material', '@emotion/react', '@emotion/styled'],
-          three: ['three', '@react-three/fiber', '@react-three/drei'],
         },
       },
     },

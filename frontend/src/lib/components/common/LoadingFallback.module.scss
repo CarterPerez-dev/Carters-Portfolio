@@ -1,0 +1,71 @@
+// ===========================
+// Loading Fallback Styles
+// ©AngelaMos | 2025
+// ===========================
+
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: $spacing-lg;
+  gap: $spacing-md;
+}
+
+.loadingText {
+  @include pixel-text;
+
+  color: $white;
+  font-size: $font-size-lg;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.loadingBar {
+  width: 100%;
+  max-width: 300px;
+}
+
+.loadingBarTrack {
+  @include pixel-border(2px, $white);
+
+  height: 24px;
+  background: $black;
+  position: relative;
+  padding: 4px;
+}
+
+.loadingBarFill {
+  height: 100%;
+  background: $white;
+  position: relative;
+  animation: loading-progress 2s steps(15) infinite;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, $white 0, $white 8px, $black 8px, $black 16px);
+  }
+}
+
+@keyframes loading-progress {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loadingBarFill {
+    animation: none;
+    width: 50%;
+  }
+}

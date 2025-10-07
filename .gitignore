@@ -27,8 +27,8 @@ _build
 build
 dist
 site-packages
-backend/.env.dev
-backend/.env.prod
+.env.dev
+.env.prod
 .claude
 backend/.coverage
 backend/carter.egg-info
