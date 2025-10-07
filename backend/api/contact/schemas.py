@@ -7,7 +7,6 @@ from pydantic import (
     BaseModel,
     Field,
     EmailStr,
-    HttpUrl,
     validator,
 )
 from config import Config
@@ -49,9 +48,10 @@ class ContactCreateRequest(BaseModel):
         description = "Contact's phone number (optional)"
     )
 
-    linkedin: HttpUrl | None = Field(
+    linkedin: str | None = Field(
         None,
-        description = "Contact's LinkedIn profile URL (optional)"
+        max_length = 500,
+        description = "Contact's LinkedIn or social profile (optional)"
     )
 
     @validator('linkedin', pre=True)
