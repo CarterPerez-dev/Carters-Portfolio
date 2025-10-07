@@ -3,10 +3,6 @@ Portfolio Website Application Factory
 /app/factory.py
 """
 
-from gevent import monkey
-monkey.patch_all()
-
-
 from flask import Flask
 from flask_jwt_extended import JWTManager
 
