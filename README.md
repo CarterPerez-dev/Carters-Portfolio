@@ -1,4 +1,4 @@
-# This is my portfolio repository, I hope you're impressed with the code
+# This is my portfolio repository, I hope you're impressed with the code (its good code...)
 ## Thats it...thanks
 ----
 ```
